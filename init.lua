@@ -156,7 +156,9 @@ require("lazy").setup({
 	--    require('Comment').setup({})
 
 	-- "gc" to comment visual regions/lines
+	"Hoffs/omnisharp-extended-lsp.nvim",
 	{ "numToStr/Comment.nvim", opts = {} },
+
 	{
 		"NeogitOrg/neogit",
 		dependencies = {
@@ -215,6 +217,12 @@ require("lazy").setup({
 				["<leader>w"] = { name = "[W]orkspace", _ = "which_key_ignore" },
 				["<leader>t"] = { name = "[T]oggle", _ = "which_key_ignore" },
 				["<leader>h"] = { name = "Git [H]unk", _ = "which_key_ignore" },
+				["<leader>g"] = {
+					name = "Git",
+					g = { ":Neogit<CR>", "Neogit Status" },
+					c = { ":Neogit commit<CR>", "Commit" },
+					l = { ":Neogit log<CR>", "Log" },
+				},
 			})
 			-- visual mode
 			require("which-key").register({
@@ -400,19 +408,19 @@ require("lazy").setup({
 					-- Jump to the definition of the word under your cursor.
 					--  This is where a variable was first declared, or where a function is defined, etc.
 					--  To jump back, press <C-t>.
-					map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+					map("gd", require("omnisharp_extended").telescope_lsp_definition, "[G]oto [D]efinition")
 
 					-- Find references for the word under your cursor.
-					map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+					map("gr", require("omnisharp_extended").telescope_lsp_references, "[G]oto [R]eferences")
 
 					-- Jump to the implementation of the word under your cursor.
 					--  Useful when your language has ways of declaring types without an actual implementation.
-					map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+					map("gI", require("omnisharp_extended").telescope_lsp_implementation, "[G]oto [I]mplementation")
 
 					-- Jump to the type of the word under your cursor.
 					--  Useful when you're not sure what type a variable is and you want to see
 					--  the definition of its *type*, not where it was *defined*.
-					map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
+					map("<leader>D", require("omnisharp_extended").telescope_lsp_type_definition, "Type [D]efinition")
 
 					-- Fuzzy find all the symbols in your current document.
 					--  Symbols are things like variables, functions, types, etc.
